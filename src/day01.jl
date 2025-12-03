@@ -23,8 +23,11 @@ function day01(input::String)
   part1Sol = part1(input)
   println("Part 1: $part1Sol")
 
+  part2TestSol = part2(testStr)
+  println("Part 2 Test: $part2TestSol")
+
   part2Sol = part2(input)
-  println("Part 1: $part2Sol")
+  println("Part 2: $part2Sol")
 end
 
 function part1(input::String)
@@ -61,8 +64,64 @@ function part1(input::String)
   return hits
 end
 
-function part2(_input::String)
-  return "in progress"
+function part2(input::String)
+  hits::Int = 0
+
+  pos::Int = 50
+
+  rotations = split(input, "\n")
+
+  wasAtZero = false
+
+  for rotation ∈ rotations
+    gotZero = false
+
+    if rotation == ""
+      continue
+    end
+
+    @views direction = rotation[1]
+
+    clicks = parse(Int, rotation[2:end])
+
+    extraZeros = round(Int, floor(clicks / 100))
+
+    hits += extraZeros
+
+    clicks = clicks % 100
+
+    if direction == 'L'
+      clicks = -1 * clicks
+    end
+
+    pos += clicks
+
+    # TODO there's probably a way to clean up this logic
+
+    if pos < 0
+      pos = 100 + pos
+
+      if !wasAtZero
+        hits += 1
+        gotZero = true
+      end
+
+    elseif pos > 99
+      pos = pos % 100
+      if !wasAtZero
+        hits += 1
+        gotZero = true
+      end
+    end
+
+    wasAtZero = pos == 0
+
+    if !gotZero && wasAtZero
+      hits += 1
+    end
+  end
+
+  return hits
 end
 
 end
