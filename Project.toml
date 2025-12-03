@@ -1,0 +1,12 @@
+name = "AOC2025"
+uuid = "bea2bafa-18cc-4df5-97e8-78a3817d4a7b"
+version = "0.1.0"
+authors = ["Cameron Pittman <cameron.w.pittman@gmail.com>"]
+
+[deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
+
+[compat]
+Printf = "1.11.0"
+Revise = "3.12.3"
