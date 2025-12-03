@@ -1,7 +1,5 @@
 module Day01
 
-export main
-
 testStr = """
 L68
 L30
