@@ -80,6 +80,7 @@ function part1(input::String)
 
   productIDRanges = map(rangeToIDs, rawRanges)
 
+  # TODO probably do this dynamically instead of saving giant lists of numbers
   allProductIds = Iterators.flatten(map(makeRange, productIDRanges))
 
   sum(map(parseInvalidTwice, allProductIds))
