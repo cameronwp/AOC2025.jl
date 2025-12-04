@@ -5,7 +5,7 @@ module AOC2025
 
 using Printf
 
-days = 1:2
+days = 1:3
 
 # import code for all days
 
