@@ -11,11 +11,11 @@ function day02(input::String)
   part1Sol = part1(input)
   println("Part 1: $part1Sol")
 
-  # part2TestSol = part2(testStr)
-  # println("Part 2 Test: $part2TestSol")
+  part2TestSol = part2(testStr)
+  println("Part 2 Test: $part2TestSol")
 
-  # part2Sol = part2(input)
-  # println("Part 2: $part2Sol")
+  part2Sol = part2(input)
+  println("Part 2: $part2Sol")
 end
 
 strMatch(x, y) = x == y
@@ -23,7 +23,6 @@ strMatch(x, y) = x == y
 # repeated N times
 function parseInvalidRepeated(productID::Int)
   maybePatternedID = "$productID"
-  println("-------------", maybePatternedID, "----------")
   charCount = length(maybePatternedID)
   halfway = round(charCount / 2)
 
@@ -50,7 +49,6 @@ function parseInvalidRepeated(productID::Int)
     )
 
     if hasPattern
-      println("^^^")
       break
     end
   end
@@ -90,6 +88,14 @@ function part1(input::String)
 end
 
 function part2(input::String)
+  rawRanges = split(input, ",")
+
+  productIDRanges = map(rangeToIDs, rawRanges)
+
+  allProductIds = Iterators.flatten(map(makeRange, productIDRanges))
+
+  sum(map(parseInvalidRepeated, allProductIds))
 end
+
 
 end
