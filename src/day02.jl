@@ -18,9 +18,7 @@ function day02(input::String)
   println("Part 2: $part2Sol")
 end
 
-strMatch(x, y) = x == y
-
-# repeated N times
+"Some pattern is matched N times"
 function parseInvalidRepeated(productID::Int)
   maybePatternedID = "$productID"
   charCount = length(maybePatternedID)
@@ -56,7 +54,7 @@ function parseInvalidRepeated(productID::Int)
   hasPattern ? productID : 0
 end
 
-# repeated N times
+"First and second half of the string match"
 function parseInvalidTwice(productID::Int)
   maybePatternedID = "$productID"
   halfway = Int(round(length(maybePatternedID) / 2))
