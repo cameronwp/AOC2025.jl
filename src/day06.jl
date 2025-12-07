@@ -23,14 +23,14 @@ function to_matrix(input::String)
   ))
 end
 
-"Turn the input string into a matrix by column. Any whitespace turns into a zero (which will need to be filtered out later). Operations are applied across columns"
+"Turn the input string into a matrix by text column. Any whitespace turns into a zero (which will need to be filtered out later)"
 function to_cephalopod_vector(input::String)
   vectorized = replace(input,
                  # break columns with ;
                  '\n' => ";",
                  # turn all whitespace into 0s
                  r"\s" => '0',
-                 # # spread operations to the following columns
+                 # # spread operations to the following columns. use % to represent columns where we expect another operand to follow
                  # # TODO maybe use a regex instead?
                  "*   " => "*%%%", "+   " => "+%%%",
                  "*  " => "*%%", "+  " => "+%%",
@@ -41,12 +41,12 @@ end
 
 function do_problem(col)
   # turn the problem into lisp-y syntax to solve
-  # filter out any zeros because they should be in the input
-  op = @sprintf("%s(%s)", col[end], join(filter(x -> x != '0', col[1:end-1]), ','))
+  op = @sprintf("%s(%s)", col[end], join(col[1:end-1], ','))
   eval(Meta.parse(op))
 end
 
 function do_math(operator, operands)
+  # basically the same function as above, just different input
   op = @sprintf("%s(%s)", operator, join(operands, ','))
   eval(Meta.parse(op))
 end
@@ -76,18 +76,25 @@ function part2(input::String)
   total = 0
 
   operands::Vector{Int64} = []
+  # reverse because cephalopods start at the rightmost column
   for col ∈ Iterators.reverse(eachcol(math_problems))
+
+    # 0s are just padding. remove them
     digits = [x for x ∈ col[1:end-1] if x != 0]
 
+    # the columns between numbers are totally empty
     if length(digits) == 0
       continue
     end
 
+    # turn the column into an integer starting at the top
     operand = parse(Int, join(digits, ""))
 
+    # collect operands for later math
     append!(operands, [operand])
 
     if col[end] == "+" || col[end] == "*"
+      # no more operands will follow, do math now
       total += do_math(col[end], operands)
       empty!(operands)
     end

@@ -19,3 +19,5 @@ Written in Julia as a learning exercise. No external dependencies (yet).
 - **Day 02**: Brute force, pattern matching
 - **Day 03**: Brute force, pattern matching
 - **Day 04**: Sliding windows, trying macros to parse inputs at compile time
+- **Day 05**: Interval algebra, use of `eval()` to turn input data into Julia
+- **Day 06**: Matrix operations, use of `eval()` to turn input data into Julia
